@@ -42,7 +42,6 @@ public class LoginTests
         //Goal: Click to our login page
         Console.WriteLine("This Setup runs per task");
         await _page.GotoAsync("https://automationexercise.com/");
-        await _page.WaitForURLAsync("**/");
         await _page.Locator("a[href='/login']").ClickAsync();
         await _page.WaitForURLAsync("**/login");
     }
@@ -81,6 +80,13 @@ public class LoginTests
     [TearDown]
      public async Task TearDown()
     {
-        
+        await _page!.CloseAsync();
+    }
+
+    [OneTimeTearDown]
+    public async Task GlobalTearDown()
+    {
+        await _browser!.CloseAsync();
+        _playwright!.Dispose();
     }
 }
